@@ -7,14 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBox x:Name="Pole tekstowe" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="15" VerticalAlignment="Top">
+        <TextBox  HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="15" VerticalAlignment="Top" Margin="20,20,20,200">
             <TextBox.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="Blue" Offset="0,0"></GradientStop>
-                    <GradientStop Color="Green" Offset="1,0"></GradientStop>
-                    <GradientStop Color="Red" Offset="1,1"></GradientStop>
+                    <GradientStop Color="Blue"></GradientStop>
+                    <GradientStop Color="Green" ></GradientStop>
+                    <GradientStop Color="Red" ></GradientStop>
                 </LinearGradientBrush>
             </TextBox.Background>
-        </TextBox>"
+        </TextBox>
+
+        <Slider Name="SuwakRozmiaru" Orientation="Vertical" Minimum="8" Maximum="38" Value="14" VerticalAlignment ="Top" HorizontalAlignment="Right" Margin="0,20,348,0" ValueChanged ="SuwakRozmiaru_ZmienionaWartosc"></Slider>
+        
     </Grid>
 </Window>
