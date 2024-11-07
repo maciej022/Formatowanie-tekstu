@@ -15,7 +15,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
                      <CheckBox x:Name="PogrubienieCheckBox" Content="Pogrubienie" FontWeight="Bold" Margin="5" Checked="PogrubienieCheckBox_Checked" />
-            <CheckBox x:Name="KursywaCheckBox" Content="Kursywa" FontStyle="Italic" Margin="5" />
+            <CheckBox x:Name="KursywaCheckBox" Content="Kursywa" FontStyle="Italic" Margin="5" Checked="KursywaCheckBox_Checked" />
             <CheckBox x:Name="PodkreslenieCheckBox" Content="Podkreślenie"  Margin="5" />
             <Slider x:Name="RozmiarCzcionkiSlider" Minimum="8" Maximum="48" Value="12" Width="100" Orientation="Vertical"  Height="55"/>
             <TextBlock Text="Rozmiar" VerticalAlignment="Center" Margin="5"/>

@@ -23,6 +23,11 @@ namespace WpfApp3
 
         private void PogrubienieCheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            var zakresTekstu = new TextRange(EdytorTekstu.Document.ContentStart, EdytorTekstu.Document.ContentEnd);
+        }
+
+        private void KursywaCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
 
         }
     }
