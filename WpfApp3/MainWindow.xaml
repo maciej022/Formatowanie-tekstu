@@ -14,19 +14,19 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
-                     <CheckBox x:Name="PogrubienieCheckBox" Content="Pogrubienie" FontWeight="Bold" Margin="5" Checked="ZmienFormat" Unchecked="ZmienFormat"/>
-            <CheckBox x:Name="KursywaCheckBox" Content="Kursywa" FontStyle="Italic" Margin="5" Checked="ZmienFormat" Unchecked="ZmienFormat"/>
-            <CheckBox x:Name="PodkreslenieCheckBox" Content="Podkreślenie"  Margin="5" Checked="ZmienFormat" Unchecked="ZmienFormat"/>
-            <Slider x:Name="RozmiarCzcionkiSlider" Minimum="8" Maximum="48" Value="12" Width="100" Orientation="Vertical" ValueChanged="RozmiarCzcionkiSlider_Zmieniono" Height="55"/>
+                     <CheckBox x:Name="PogrubienieCheckBox" Content="Pogrubienie" FontWeight="Bold" Margin="5" Checked="PogrubienieCheckBox_Checked" />
+            <CheckBox x:Name="KursywaCheckBox" Content="Kursywa" FontStyle="Italic" Margin="5" />
+            <CheckBox x:Name="PodkreslenieCheckBox" Content="Podkreślenie"  Margin="5" />
+            <Slider x:Name="RozmiarCzcionkiSlider" Minimum="8" Maximum="48" Value="12" Width="100" Orientation="Vertical"  Height="55"/>
             <TextBlock Text="Rozmiar" VerticalAlignment="Center" Margin="5"/>
 
             
-            <RadioButton x:Name="CzarnyKolor" Content="Czarny" Margin="5" Checked="ZmienKolor"/>
-            <RadioButton x:Name="CzerwonyKolor" Content="Czerwony" Foreground="Red" Margin="5" Checked="ZmienKolor"/>
-            <RadioButton x:Name="NiebieskiKolor" Content="Niebieski" Foreground="Blue" Margin="5" Checked="ZmienKolor"/>
+            <RadioButton x:Name="CzarnyKolor" Content="Czarny" Margin="5" />
+            <RadioButton x:Name="CzerwonyKolor" Content="Czerwony" Foreground="Red" Margin="5" />
+            <RadioButton x:Name="NiebieskiKolor" Content="Niebieski" Foreground="Blue" Margin="5" />
 
           
-            <ComboBox x:Name="KrojCzcionkiComboBox" Width="150" Margin="5" SelectionChanged="KrojCzcionkiComboBox_Zmieniono">
+            <ComboBox x:Name="KrojCzcionkiComboBox" Width="150" Margin="5" >
                 <ComboBoxItem Content="Arial"/>
                 <ComboBoxItem Content="Times New Roman"/>
                 <ComboBoxItem Content="Calibri"/>

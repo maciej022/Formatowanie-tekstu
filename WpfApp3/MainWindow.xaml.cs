@@ -20,5 +20,10 @@ namespace WpfApp3
         {
             InitializeComponent();
         }
+
+        private void PogrubienieCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
