@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics.Metrics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,8 +10,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfApp3
+namespace Edytor
 {
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -18,107 +20,137 @@ namespace WpfApp3
             InitializeComponent();
         }
 
-        // Pogrubienie
-        private void AktualizujPogrubienie(object sender, RoutedEventArgs e)
+        //metoda, która aktualizuje zmiany wprowadzone do tekstu
+        private void Aktualizuj(object sender, RoutedEventArgs e)
         {
-            TextSelection tekst = poleTekstowe.Selection;
-            if (checkBoxPogrubienie.IsChecked == true)
-                tekst.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
-            else
-                tekst.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Normal);
+            // jeśli kontrolki nie mają wartości, zamyka się program
+            if (bold == null || italic == null || Podkresl == null || Czarnyczcionk == null || Czerwonyczcionk == null ||
+                Zielonyczcionk == null || Niebieskiczcionk == null ||
+                BezowyTlo == null || CzerwonyTlo == null || ZielonyTlo == null
+                || NiebieskiTlo == null || Lewo == null || Srodek == null || Prawo == null || Just == null || Arial == null ||
+                Times == null || Courier == null || panel == null || suwak == null)
+            {
+                return; //zamknięcie programu
+            }
+            //aktualizuje metody zmieniające poszczególne elementy
+            UstawKolorCzcionki();
+            UstawKolorTla();
+            UstawJustowanie();s
+            UstawStylCzcionki();
+            UstawKrojCzcionki();
+            RozmCzionki();
+            Progres();
         }
 
-        // Kursywa
-        private void AktualizujKursywa(object sender, RoutedEventArgs e)
+
+        //ustawienie koloru czcionki
+        private void UstawKolorCzcionki()
         {
-            TextSelection tekst = poleTekstowe.Selection;
-            if (checkBoxKursywa.IsChecked == true)
-                tekst.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Italic);
-            else
-                tekst.ApplyPropertyValue(TextElement.FontStyleProperty, FontStyles.Normal);
+            if (Czarnyczcionk.IsChecked == true)
+            {
+                poletekstu.Foreground = Brushes.Black;
+            }
+            if (Czerwonyczcionk.IsChecked == true)
+            {
+                poletekstu.Foreground = Brushes.Red;
+            }
+            if (Zielonyczcionk.IsChecked == true)
+            {
+                poletekstu.Foreground = Brushes.Green;
+            }
+            if (Niebieskiczcionk.IsChecked == true)
+            {
+                poletekstu.Foreground = Brushes.Blue;
+            }
         }
 
-        // Podkreślenie
-        private void AktualizujPodkreslenie(object sender, RoutedEventArgs e)
+        private void UstawKolorTla()
         {
-            TextSelection tekst = poleTekstowe.Selection;
-            if (checkBoxPodkreslenie.IsChecked == true)
-                tekst.ApplyPropertyValue(Inline.TextDecorationsProperty, TextDecorations.Underline);
-            else
-                tekst.ApplyPropertyValue(Inline.TextDecorationsProperty, null);
+            if (BezowyTlo.IsChecked == true)
+            {
+                poletekstu.Background = Brushes.DarkKhaki;
+            }
+            if (CzerwonyTlo.IsChecked == true)
+            {
+                poletekstu.Background = Brushes.Red;
+            }
+            if (ZielonyTlo.IsChecked == true)
+            {
+                poletekstu.Background = Brushes.Green;
+            }
+            if (NiebieskiTlo.IsChecked == true)
+            {
+                poletekstu.Background = Brushes.Blue;
+            }
         }
 
-        // Zmiana rozmiaru czcionki
-        private void AktualizujRozmiarCzcionki(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void UstawJustowanie()
         {
-            TextSelection tekst = poleTekstowe.Selection;
-            tekst.ApplyPropertyValue(TextElement.FontSizeProperty, suwakRozmiar.Value);
+            if (Lewo.IsChecked == true)
+                poletekstu.TextAlignment = TextAlignment.Left;
+            if (Srodek.IsChecked == true)
+                poletekstu.TextAlignment = TextAlignment.Center;
+            if (Prawo.IsChecked == true)
+                poletekstu.TextAlignment = TextAlignment.Right;
+            if (Just.IsChecked == true)
+                poletekstu.TextAlignment = TextAlignment.Justify;
+
         }
 
-        // Zmiana koloru czcionki - Czerwony
-        private void AktualizujKolorCzcionkiCzerwony(object sender, RoutedEventArgs e)
+        private void UstawStylCzcionki()
         {
-            TextSelection tekst = poleTekstowe.Selection;
-            tekst.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Red);
+            //Domyślny styl tesktu
+            var styl = FontStyles.Normal;
+            var grubosc = FontWeights.Normal;
+            var dodatki = new TextDecorationCollection();
+
+            //jaki styl ma być po zaznaczeniu
+            if (bold.IsChecked == true)
+                grubosc = FontWeights.Bold;
+            if (italic.IsChecked == true)
+                styl = FontStyles.Italic;
+            if (Podkresl.IsChecked == true)
+                dodatki = TextDecorations.Underline;
+            poletekstu.FontStyle = styl;
+            poletekstu.FontWeight = grubosc;
+            poletekstu.TextDecorations = dodatki;
         }
 
-        // Zmiana koloru czcionki - Zielony
-        private void AktualizujKolorCzcionkiZielony(object sender, RoutedEventArgs e)
+
+        //zmiana kroju czcionki
+        private void UstawKrojCzcionki()
         {
-            TextSelection tekst = poleTekstowe.Selection;
-            tekst.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Green);
+            if (Arial.IsChecked == true)
+                poletekstu.FontFamily = new FontFamily("Arial");
+            else if (Times.IsChecked == true)
+                poletekstu.FontFamily = new FontFamily("Times New Roman");
+            else if (Courier.IsChecked == true)
+                poletekstu.FontFamily = new FontFamily("Courier New");
         }
 
-        // Zmiana koloru czcionki - Niebieski
-        private void AktualizujKolorCzcionkiNiebieski(object sender, RoutedEventArgs e)
+
+        //zmiana wartości suwaka zmienia rozmiar czcionki
+        private void RozmCzionki()
         {
-            TextSelection tekst = poleTekstowe.Selection;
-            tekst.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Blue);
+            poletekstu.FontSize = suwak.Value;
         }
 
-        // Zmiana kroju czcionki - Arial
-        private void AktualizujKrojCzcionkiArial(object sender, RoutedEventArgs e)
-        {
-            TextSelection tekst = poleTekstowe.Selection;
-            tekst.ApplyPropertyValue(TextElement.FontFamilyProperty, new FontFamily("Arial"));
-        }
 
-        // Zmiana kroju czcionki - Times New Roman
-        private void AktualizujKrojCzcionkiTimes(object sender, RoutedEventArgs e)
+        //dzialanie panelu progresu
+        private void Progres()
         {
-            TextSelection tekst = poleTekstowe.Selection;
-            tekst.ApplyPropertyValue(TextElement.FontFamilyProperty, new FontFamily("Times New Roman"));
-        }
+            int progresik = 0; //początkowa wartość 0
 
-        // Zmiana kroju czcionki - Calibri
-        private void AktualizujKrojCzcionkiCalibri(object sender, RoutedEventArgs e)
-        {
-            TextSelection tekst = poleTekstowe.Selection;
-            tekst.ApplyPropertyValue(TextElement.FontFamilyProperty, new FontFamily("Calibri"));
-        }
-
-        // Wyrównanie tekstu do lewej
-        private void WyrównajTekstLewo(object sender, RoutedEventArgs e)
-        {
-            poleTekstowe.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Left);
-        }
-
-        // Wyrównanie tekstu do środka
-        private void WyrównajTekstSrodek(object sender, RoutedEventArgs e)
-        {
-            poleTekstowe.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Center);
-        }
-
-        // Wyrównanie tekstu do prawej
-        private void WyrównajTekstPrawo(object sender, RoutedEventArgs e)
-        {
-            poleTekstowe.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Right);
-        }
-
-        // Justowanie tekstu
-        private void WyrównajTekstJustowanie(object sender, RoutedEventArgs e)
-        {
-            poleTekstowe.Selection.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Justify);
+            if (bold.IsChecked == true) progresik++; //zwiększa się o jeden
+            if (italic.IsChecked == true) progresik++;
+            if (Podkresl.IsChecked == true) progresik++;
+            if (Czarnyczcionk.IsChecked == true || Czerwonyczcionk.IsChecked == true || Zielonyczcionk.IsChecked == true
+                || Niebieskiczcionk.IsChecked == true) progresik++;
+            if (BezowyTlo.IsChecked == true || CzerwonyTlo.IsChecked == true || ZielonyTlo.IsChecked == true || NiebieskiTlo.IsChecked == true) progresik++;
+            if (Lewo.IsChecked == true || Srodek.IsChecked == true || Prawo.IsChecked == true || Just.IsChecked == true) progresik++;
+            if (Arial.IsChecked == true || Times.IsChecked == true || Courier.IsChecked == true) progresik++;
+            if (suwak.Value != suwak.Minimum) progresik++;
+            panel.Value = progresik; //wartość panelu odpowiada progresik
         }
     }
 }

@@ -1,52 +1,68 @@
-﻿<Window x:Class="WpfApp3.MainWindow"
+﻿<Window x:Class="Edytor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp3"
         mc:Ignorable="d"
-        Title="Edytor tekstu" Height="600" Width="800">
+        Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <!-- Pasek postępu -->
-        <ProgressBar Name="pasekPostepu" HorizontalAlignment="Left" VerticalAlignment="Top" Width="760" Height="20" Margin="10" />
-
-        <!-- TextBox do wpisywania tekstu -->
-        <TextBox Name="poleTekstowe" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="200" Margin="10,40,10,0" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Background="LightGray" VerticalScrollBarVisibility="Auto" />
-
-        <!-- Kontrolki do formatowania tekstu -->
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,250,10,0">
-            <!-- CheckBox dla pogrubienia, kursywy i podkreślenia -->
-            <CheckBox Name="checkBoxPogrubienie" Content="Pogrubienie" Margin="10,0" Checked="AktualizujFormatTekstu" />
-            <CheckBox Name="checkBoxKursywa" Content="Kursywa" Margin="10,0" Checked="AktualizujFormatTekstu" />
-            <CheckBox Name="checkBoxPodkreslenie" Content="Podkreślenie" Margin="10,0" Checked="AktualizujFormatTekstu" />
+        <TextBox  Text="Wprowadź tekst" x:Name="poletekstu" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Width="400" Height="200" Margin="10, 10, 10,0" VerticalAlignment="Top">
+            <TextBox.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="LightGray" Offset="0.0"/>
+                    <GradientStop Color="White" Offset="1.0"/>
+                </LinearGradientBrush>
+            </TextBox.Background>
+        </TextBox>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="80,220,0,0">
+            <CheckBox  x:Name="bold" Checked="Aktualizuj" Unchecked="Aktualizuj">
+                <TextBlock  Text="Bold" FontWeight="Bold"></TextBlock>
+            </CheckBox>
+            <CheckBox x:Name="italic" Checked="Aktualizuj" Unchecked="Aktualizuj">
+                <TextBlock Text="Italic" FontStyle="Italic" ></TextBlock>
+            </CheckBox>
+            <CheckBox x:Name="Podkresl" Checked="Aktualizuj" Unchecked="Aktualizuj">
+                <TextBlock Text="Podkreślenie" TextDecorations="Underline"></TextBlock>
+            </CheckBox>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="80,270,0,0">
+            <TextBlock Text="Kolor czcionki" FontWeight="Bold"></TextBlock>
+            <RadioButton x:Name="Czarnyczcionk" Content="Czarny" Foreground="Black" GroupName="KolorCzcionki" Checked="Aktualizuj"></RadioButton>
+            <RadioButton x:Name="Czerwonyczcionk" Content="Czerwony" Foreground="Red"  GroupName="KolorCzcionki" Checked="Aktualizuj"></RadioButton>
+            <RadioButton x:Name="Zielonyczcionk" Content="Zielony" Foreground="Green"  GroupName="KolorCzcionki" Checked="Aktualizuj"></RadioButton>
+            <RadioButton x:Name="Niebieskiczcionk" Content="Niebieski" Foreground="Blue"  GroupName="KolorCzcionki" Checked="Aktualizuj"></RadioButton>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,290,10,0">
-            <!-- Suwak do zmiany rozmiaru czcionki -->
-            <Label Content="Rozmiar czcionki:" VerticalAlignment="Center" Margin="10,0" />
-            <Slider Name="suwakRozmiar" Minimum="8" Maximum="40" Value="16" Width="200" ValueChanged="AktualizujFormatTekstu" />
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="-240,270,0,0" Width="73">
+            <TextBlock Text="Kolor tła" FontWeight="Bold"></TextBlock>
+            <RadioButton x:Name="BezowyTlo" Content="Beżowy" Foreground="DarkKhaki" GroupName="Kolortla" Checked="Aktualizuj"></RadioButton>
+            <RadioButton x:Name="CzerwonyTlo" Content="Czerwony" Foreground="Red"  GroupName="Kolortla" Checked="Aktualizuj"></RadioButton>
+            <RadioButton x:Name="ZielonyTlo" Content="Zielony" Foreground="Green"  GroupName="Kolortla" Checked="Aktualizuj"></RadioButton>
+            <RadioButton x:Name="NiebieskiTlo" Content="Niebieski" Foreground="Blue"  GroupName="Kolortla" Checked="Aktualizuj"></RadioButton>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,340,10,0">
-            <!-- RadioButton do zmiany koloru czcionki -->
-            <RadioButton Name="radioCzerwony" Content="Czerwony" GroupName="KolorCzcionki" Margin="10,0" Checked="AktualizujFormatTekstu" />
-            <RadioButton Name="radioZielony" Content="Zielony" GroupName="KolorCzcionki" Margin="10,0" Checked="AktualizujFormatTekstu" />
-            <RadioButton Name="radioNiebieski" Content="Niebieski" GroupName="KolorCzcionki" Margin="10,0" Checked="AktualizujFormatTekstu" />
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="200,270,0,0">
+            <TextBlock Text="Justowanie" FontWeight="Bold"></TextBlock>
+            <RadioButton x:Name="Lewo" Content="Lewo"  GroupName="Justowanie" Checked="Aktualizuj"></RadioButton>
+            <RadioButton x:Name="Srodek" Content="Środek"  GroupName="Justowanie" Checked="Aktualizuj"></RadioButton>
+            <RadioButton x:Name="Prawo" Content="Prawo"  GroupName="Justowanie" Checked="Aktualizuj"></RadioButton>
+            <RadioButton x:Name="Just" Content="Justuj"  GroupName="Justowanie" Checked="Aktualizuj"></RadioButton>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,390,10,0">
-            <!-- RadioButton do zmiany kroju czcionki -->
-            <RadioButton Name="radioArial" Content="Arial" GroupName="KrojCzcionki" Margin="10,0" Checked="AktualizujFormatTekstu" />
-            <RadioButton Name="radioTimes" Content="Times New Roman" GroupName="KrojCzcionki" Margin="10,0" Checked="AktualizujFormatTekstu" />
-            <RadioButton Name="radioCalibri" Content="Calibri" GroupName="KrojCzcionki" Margin="10,0" Checked="AktualizujFormatTekstu" />
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="0,270,80,0">
+            <TextBlock Text="Krój czcionki" FontWeight="Bold"></TextBlock>
+            <RadioButton x:Name="Arial" Content="Arial"  GroupName="Kroj" Checked="Aktualizuj"></RadioButton>
+            <RadioButton x:Name="Times" Content="TimesNewRoman"  GroupName="Kroj" Checked="Aktualizuj"></RadioButton>
+            <RadioButton x:Name="Courier" Content="CourierNew"  GroupName="Kroj" Checked="Aktualizuj"></RadioButton>
         </StackPanel>
 
-        <!-- Przyciski do wyrównania tekstu -->
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,440,10,0">
-            <Button Content="Wyrównaj do lewej" Width="100" Margin="10,0" Click="WyrównajTekstLewo"/>
-            <Button Content="Wyrównaj do środka" Width="100" Margin="10,0" Click="WyrównajTekstSrodek"/>
-            <Button Content="Wyrównaj do prawej" Width="100" Margin="10,0" Click="WyrównajTekstPrawo"/>
-            <Button Content="Justowanie" Width="100" Margin="10,0" Click="WyrównajTekstJustowanie"/>
-        </StackPanel>
+        <Slider Orientation="Vertical" Minimum="8" Maximum="75" Width="20" HorizontalAlignment="Right" SmallChange="0.5" LargeChange="1" Value="12"
+                VerticalAlignment="Top"  ValueChanged="Aktualizuj" ToolTip="Rozmiarczcionki" Margin="0,10,43,0" Height="207" x:Name="suwak"></Slider>
+
+
+        <ProgressBar x:Name="panel" Height="30" Width="500" VerticalAlignment="Bottom" Minimum="0" Maximum="8">
+        </ProgressBar>
+
     </Grid>
 </Window>
